@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+@use 'sass:math';
+@use 'base/mixin' as *;
+@use 'base/reset';
+@use 'base/comm' as *;
+@use 'base/loading';
+@use 'layout';
+@use 'mobile';
+
+:root {
+  --font-face: 'Roboto', '맑은 고딕';
+}

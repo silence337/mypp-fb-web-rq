@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+@use 'sass:math';
+@use 'base/mixin' as *;
+
+:root {
+  --font-face: 'Roboto', '맑은 고딕';
+}
+
+// layout
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 50px;
+  color: #3b3b3b;
+  font-family: var(--font-face);
+}
+.layout_header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+
+  .layout_header_logo {
+    position: relative;
+    padding-left: 20px;
+    transition: 0.6s;
+    p {
+      font-size: 14px;
+      font-weight: normal;
+      opacity: 0.7;
+    }
+
+    .lottie-space {
+      position: absolute;
+      top: -50px;
+      right: 20px;
+      width: 120px;
+      height: 120px;
+    }
+  }
+  .layout_header_nav {
+  }
+
+  .layout_header_join {
+    display: flex;
+    min-width: 254px;
+    justify-content: flex-end;
+  }
+}
+.layout_footer {
+  padding: 100px 0;
+  text-align: center;
+}
+.markdown-body {
+  padding: 0 20px;
+  li {
+    list-style: disc;
+  }
+  p img {
+    margin-bottom: 10px;
+  }
+}

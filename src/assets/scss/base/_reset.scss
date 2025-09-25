@@ -1,0 +1,189 @@
+@use './mixin' as *;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sunuwar&&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* style reset */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::after,
+::before {
+  -webkit-text-size-adjust: none;
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+::-moz-selection {
+  color: #fff;
+  background: #3978f8;
+}
+::selection {
+  color: #fff;
+  background: #3978f8;
+}
+:focus {
+  outline: 0;
+}
+html {
+  width: 100%;
+  font-size: 10px;
+  // @media (max-width: 374px) {font-size:8px}
+}
+body {
+  width: 100%;
+  color: #666;
+  line-height: 1.5;
+  font-size: 1.6rem;
+  word-break: keep-all;
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: auto;
+  // @media (max-width: 1023px) {word-break:keep-all}
+}
+ul,
+ol,
+li {
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+em,
+address,
+i {
+  font-style: normal;
+}
+// dt, strong, em, b {font-weight: 700}
+img,
+input,
+textarea,
+button {
+  vertical-align: middle;
+}
+hr {
+  font-size: 0;
+  line-height: 0;
+  border: 0;
+}
+pre {
+  white-space: pre-line;
+  word-break: break-all;
+}
+img {
+  border: 0;
+}
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+
+  &::-ms-clear {
+    display: none;
+  }
+  &::-webkit-input-placeholder {
+    @include placeHolder;
+  }
+  &:-moz-placeholder {
+    @include placeHolder;
+  }
+  &::-moz-placeholder {
+    @include placeHolder;
+  }
+  &:-ms-input-placeholder {
+    @include placeHolder;
+  }
+}
+
+input[type='text'],
+input[type='password'],
+input[type='file'] {
+  display: block;
+  padding: 0;
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  color: #666;
+}
+textarea {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  resize: none;
+  background: #fff;
+  color: #666;
+}
+select {
+  border-radius: 0;
+  color: #666;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  &::-ms-expand {
+    display: none;
+  }
+}
+button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
+}
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: 0;
+}
+fieldset legend {
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+table {
+  border-collapse: collapse;
+}
+caption {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 0;
+}
+body,
+button,
+input,
+textarea,
+select,
+pre {
+  font-weight: 400;
+  //letter-spacing:-0.02rem;
+  //font-family: 'Bebas Neue', cursive;
+  font-family: 'Inter', 'DM Sans', Arial, sans-serif;
+  //font-family:Roboto, noto, Dotum, Arial, sans-serif;
+}
+.isDesk {
+  display: block !important;
+}
+.isMobile {
+  display: none !important;
+}
+@include mq(mobile) {
+  .isDesk {
+    display: none !important;
+  }
+  .isMobile {
+    display: block !important;
+  }
+}

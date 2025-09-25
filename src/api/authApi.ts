@@ -1,0 +1,77 @@
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  setPersistence,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+  EmailAuthProvider,
+  deleteUser,
+  reauthenticateWithCredential,
+} from 'firebase/auth';
+import { doc, serverTimestamp, setDoc, deleteDoc } from 'firebase/firestore';
+import { db, auth } from '@/firebase';
+import type { FormValues } from '@/types/formTypes';
+import type { AuthUser, AuthUserLogin } from '@/types/authTypes';
+
+// 계정생성
+export const signUp = async (data: FormValues): Promise<AuthUser> => {
+  const userCredential = await createUserWithEmailAndPassword(
+    auth,
+    data.email,
+    data.password
+  );
+  const user = userCredential.user;
+
+  // 닉네임 업데이트 (displayName 설정) 및 Firestore 문서 생성
+  await updateProfile(user, { displayName: data.displayName });
+  await setDoc(doc(db, 'users', user.uid), {
+    displayName: data.displayName,
+    displayNameLower: data.displayName.toLowerCase(),
+    email: data.email,
+    createdAt: serverTimestamp(),
+  });
+
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+  };
+};
+
+// 로그인
+export const userLogin = async (data: AuthUserLogin): Promise<AuthUser> => {
+  await setPersistence(auth, browserSessionPersistence); //브라우저의 탭이나 창이 닫히면 로그인 섹션 삭제. ( browserSessionPersistence )
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    data.email,
+    data.password
+  );
+
+  const user = userCredential.user;
+  return {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+  };
+};
+
+// 로그아웃
+export const userLogout = async (): Promise<void> => {
+  await auth.signOut();
+};
+
+// 회원탈퇴
+export const deleteCurrentUser = async (password: string): Promise<void> => {
+  const user = auth.currentUser;
+
+  if (user && user.email) {
+    // 사용자 인증
+    const credential = EmailAuthProvider.credential(user.email, password);
+    // 자격 증명
+    await reauthenticateWithCredential(user, credential);
+
+    // 삭제
+    await deleteDoc(doc(db, 'users', user.uid)); // firestore DB 에서도 삭제
+    await deleteUser(user); // Auth user 삭제
+  }
+};

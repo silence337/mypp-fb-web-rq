@@ -1,0 +1,154 @@
+@charset "utf-8";
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:list';
+
+$breakpoints: (
+  'mobile': (
+    max-width: 740px,
+  ),
+  'tablet': (
+    max-width: 1145px,
+  ),
+  'wide': (
+    min-width: 1921px,
+  ),
+);
+
+@mixin mq($name) {
+  $raw-query: map.get($breakpoints, $name);
+
+  @if $raw-query {
+    $query: if(
+      meta.type-of($raw-query) == 'string',
+      unquote($raw-query),
+      meta.inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$name}`. '
+		 + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+// mixin.vw(100)
+@function vw($px, $viewport: 1920) {
+  @return ($px / $viewport) * 100vw;
+}
+// mixin.vh(100)
+@function vh($px, $viewport: 1080) {
+  @return ($px / $viewport) * 100vh;
+}
+// 최소값만 지정
+//font-size: mixin.minmax(16, 20);
+
+// 최대값만 지정
+//font-size: mixin.minmax(null, 20, 28);
+
+// 아무 것도 없이 vw 값만
+//font-size: mixin.minmax(null, 20, null);
+@function minmax($min-px: null, $preferred-px, $max-px: null, $viewport: 1920) {
+  $preferred-vw: ($preferred-px / $viewport) * 100vw;
+
+  @if $min-px != null and $max-px != null {
+    @return clamp(#{$min-px}px, #{$preferred-vw}, #{$max-px}px);
+  } @else if $min-px != null {
+    @return max(#{$min-px}px, #{$preferred-vw});
+  } @else if $max-px != null {
+    @return min(#{$max-px}px, #{$preferred-vw});
+  } @else {
+    @return $preferred-vw;
+  }
+}
+
+@mixin backgroundSetting(
+  $backgroundRepeat,
+  $backgroundPosition,
+  $backgroundSize,
+  $backgroundImg
+) {
+  background-repeat: $backgroundRepeat;
+  background-position: $backgroundPosition;
+  background-size: $backgroundSize;
+  background-image: $backgroundImg;
+}
+
+@mixin afterBefore {
+  display: inline-block;
+  content: '';
+}
+
+// text blind hidden
+@mixin textHidden {
+  font-size: 0;
+  //text-indent:-9999px;
+  line-height: 0;
+  @content;
+}
+
+// ellipsis text
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+@mixin layoutMinWidth {
+  min-width: 128rem;
+  @content;
+}
+
+@mixin deskMaxWidth {
+  max-width: 128rem;
+  margin: 0 auto;
+  @content;
+}
+
+@mixin mobileMaxWidth {
+  max-width: 75rem;
+  margin: 0 auto;
+  @content;
+}
+
+@mixin clearfix($selector) {
+  //before, after 선택해서 쓰기
+  &::#{$selector} {
+    content: '';
+    clear: both;
+    display: block;
+    overflow: hidden;
+  }
+}
+
+@mixin flex($justify, $align) {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin placeHolder {
+  color: #bcbcbc;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+@mixin BebasNeuePro($set) {
+  font-family: 'BebasNeuePro-#{$set}';
+  @include mq(mobile) {
+    //	letter-spacing:-0.1rem;
+  }
+}
+
+@mixin openSans($s) {
+  font-family: 'Open Sans';
+  font-size: $s;
+}
