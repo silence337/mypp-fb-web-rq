@@ -10,7 +10,7 @@
 
 ## Explanation
 - react v19, vite, typescript, firebase, tanstack query(react-query)
-- 기존 React RTK 에서 tanstack query(react-query) 로 리팩토링
+- 기존 React RTK 에서 tanstack query(react-query) 로 리팩토링    <a href="https://my-react-board.firebaseapp.com/" target="blank">[Redux-toolkit 버전보기]</a>
 - Firebase Auth email register, login
 - Firebase Firestore database BOARD
 - 포트폴리오 목적성이기에 가입 시, 이메일 인증처리는 하지 않아 임시 계정으로 생성하여 테스트 가능
@@ -37,3 +37,4 @@
 
 
 ```
+
