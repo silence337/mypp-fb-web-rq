@@ -1,0 +1,9 @@
+{
+  "files": [],
+  // Vite는 node 환경과 브라우저 환경을 분리해 빌드, tsconfig.json 파일을 분리해 관리.
+  // 공통 설정을 여기에 할수있다.(일단 나중에 정리해보자)
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
