@@ -1,0 +1,32 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "prettier.disableLanguages": ["javascript"],
+  "files.autoSave": "onFocusChange",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+
+  // 기본 포맷터로 Prettier 지정
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // TypeScript 파일에 대해 포맷터 지정
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.inlayHints.parameterNames.enabled": "literals", // 리터럴 값(숫자, 문자열 등)일 때만 매개변수 이름 표시
+  "typescript.inlayHints.parameterTypes.enabled": false, // 함수 파라미터 타입은 간단한 경우 숨김 (가독성 향상)
+  "typescript.inlayHints.variableTypes.enabled": true, // 추론이 어려운 변수 타입만 표시
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true, // 클래스 속성 선언 시 타입 표시
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true, // 함수/메서드 반환 타입 표시
+  "typescript.inlayHints.enumMemberValues.enabled": true // enum 멤버 값 표시
+}
