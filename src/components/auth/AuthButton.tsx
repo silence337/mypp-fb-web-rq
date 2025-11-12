@@ -1,18 +1,13 @@
 import React from 'react';
 import { FirebaseError } from 'firebase/app';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
-import {
-  useCurrentUser,
-  useSignOut,
-  useDeleteUser,
-} from '@/hooks/useAuthQuery';
+import { useSignOut, useDeleteUser } from '@/hooks/useAuthQuery';
+import { useAuthStore } from '@/store/authStore';
 
 const AuthButton = () => {
-  const { data: user, isLoading } = useCurrentUser();
+  const { user, isLoading } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
-  const queryClient = useQueryClient();
   /*
     페이지에서 처리할 뮤테이션이 하나라면 간단히 이렇게도 사용..
     const { mutate, isPending } = useSignUp(); 
@@ -23,7 +18,6 @@ ex) const signoutfn = useSignOut();
     signoutfn.mutate(data, {...})
 
   */
-
   const { mutate: signOutMutation, isPending: signOutIsPending } = useSignOut();
   const { mutate: deleteUserMutation, isPending: deleteUserIsPending } =
     useDeleteUser();
@@ -37,7 +31,7 @@ ex) const signoutfn = useSignOut();
   const handleSignOut = () => {
     signOutMutation(undefined, {
       onSuccess: () => {
-        navigate('/login');
+        navigate('/');
       },
       onError: (error) => {
         console.error('로그아웃 실패:', error);
@@ -62,7 +56,7 @@ ex) const signoutfn = useSignOut();
     deleteUserMutation(password, {
       onSuccess: () => {
         alert('회원탈퇴가 완료되었습니다.');
-        queryClient.setQueryData(['user'], null);
+        // queryClient 조작은 더 이상 필요 없습니다. onAuthStateChanged가 상태를 null로 변경합니다.
         //queryClient.invalidateQueries({ queryKey: ['user'] });
         navigate('/');
       },
@@ -80,9 +74,7 @@ ex) const signoutfn = useSignOut();
     });
   };
 
-  if (isLoading) {
-    return null;
-  }
+  if (isLoading) return null;
 
   return (
     <span>

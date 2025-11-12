@@ -4,7 +4,8 @@ import Input from '@/components/form/Input';
 import Textarea from '@/components/form/Textarea';
 import type { BoardItem, BoardCreate } from '@/types/boardTypes';
 import { BoardRules } from '@/validation/boardValidation';
-import { useCurrentUser } from '@/hooks/useAuthQuery';
+//import { useCurrentUser } from '@/hooks/useAuthQuery';
+import { useAuthStore } from '@/store/authStore';
 
 interface Props {
   onSubmit: (data: BoardCreate) => void | Promise<void>;
@@ -13,7 +14,8 @@ interface Props {
 }
 
 const BoardForm = ({ onSubmit, editValues, isPending }: Props) => {
-  const { data: user } = useCurrentUser();
+  //const { data: user } = useCurrentUser();
+  const { user } = useAuthStore();
   const rules = BoardRules;
 
   const {

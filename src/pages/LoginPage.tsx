@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AuthForm from '@/components/auth/AuthForm';
 import { useForm } from 'react-hook-form';
-import { useSignIn, useCurrentUser } from '@/hooks/useAuthQuery';
+import { useSignIn } from '@/hooks/useAuthQuery';
 import type { FormValues } from '@/types/formTypes';
 import type { AuthUserLogin } from '@/types/authTypes';
 import { FirebaseError } from 'firebase/app';
+import { useAuthStore } from '@/store/authStore';
 
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
-  const { data: user, isPending: isUserLoading } = useCurrentUser();
+  //const { data: user, isPending: isUserLoading } = useCurrentUser();
+  const { user, isLoading } = useAuthStore();
   const [loginError, setLoginError] = useState<string | null>(null);
 
   /*
@@ -60,12 +62,12 @@ const LoginPage = () => {
 
   // 로그인 한 유저가 /login 직접 접근시 리다이렉트
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isLoading && user) {
       navigate('/', { replace: true });
     }
-  }, [user, isUserLoading, navigate]);
+  }, [user, isLoading, navigate]);
 
-  if (isUserLoading) return null;
+  if (isLoading) return null;
 
   return (
     <form onSubmit={handleSubmit(loginAction)}>

@@ -19,6 +19,7 @@ OLD -[React RTK 버전] https://github.com/silence337/mypp-fb-web
 ```
 - 현재 배포된 사이트는 React RTK -> React-Query 로 리팩토링 된 사이트입니다.
 - Firebase Auth email register, login
+- Auth User zustand 를 이용하여 전역 상태관리 ( 추후 확장을 고려하여 적용 )
 - Firebase Firestore database BOARD
 - 포트폴리오 목적으로 이메일 인증처리는 하지 않아 임시 계정으로 생성하여 테스트 가능
 - 임시 테스트 계정 - admin@naver.com/110909

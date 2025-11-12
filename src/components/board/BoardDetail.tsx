@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ViewProps } from '@/types/boardTypes';
-import { useCurrentUser } from '@/hooks/useAuthQuery';
+//import { useCurrentUser } from '@/hooks/useAuthQuery';
 import { useDeleteBoard } from '@/hooks/useBoardQuery';
+import { useAuthStore } from '@/store/authStore';
 
 const BoardDetail = ({ boardView }: ViewProps) => {
   const navigate = useNavigate();
-  const { data: user } = useCurrentUser();
+  //const { data: user } = useCurrentUser();
+  const { user } = useAuthStore();
   const deleteMutation = useDeleteBoard();
 
   const isAuthor = boardView && user && boardView.author === user.displayName;

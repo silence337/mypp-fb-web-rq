@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { FirebaseError } from 'firebase/app';
 import AuthForm from '@/components/auth/AuthForm';
-import { useSignUp, useCurrentUser } from '@/hooks/useAuthQuery';
+import { useSignUp } from '@/hooks/useAuthQuery';
 import type { FormValues } from '@/types/formTypes';
+import { useAuthStore } from '@/store/authStore';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const { data: user, isPending: isUserLoading } = useCurrentUser();
+  //const { data: user, isPending: isUserLoading } = useCurrentUser();
+  const { user, isLoading } = useAuthStore();
   /*
     페이지에서 처리할 뮤테이션이 하나라면 간단히 이렇게도 사용..
     const { mutate, isPending } = useSignUp(); 
@@ -65,12 +67,12 @@ const RegisterPage = () => {
 
   // 로그인 한 유저가 /regiter 직접 접근시 리다이렉트
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isLoading && user) {
       navigate('/', { replace: true });
     }
-  }, [user, isUserLoading, navigate]);
+  }, [user, isLoading, navigate]);
 
-  if (isUserLoading) return null;
+  if (isLoading) return null;
 
   return (
     <form onSubmit={handleSubmit(registerAction)}>

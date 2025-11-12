@@ -12,7 +12,7 @@ const FreeBoard = () => {
 
   const { data: boards, isLoading, isError } = useBoardList();
 
-  console.log(boards);
+  //console.log(boards);
 
   const onPageChange = (pageNum: number) => {
     // uri에 페이징 쿼리 파라미터 추가

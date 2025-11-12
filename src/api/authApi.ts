@@ -22,19 +22,20 @@ export const signUp = async (data: FormValues): Promise<AuthUser> => {
   );
   const user = userCredential.user;
 
-  // 닉네임 업데이트 (displayName 설정) 및 Firestore 문서 생성
-  await updateProfile(user, { displayName: data.displayName });
-  await setDoc(doc(db, 'users', user.uid), {
-    displayName: data.displayName,
-    displayNameLower: data.displayName.toLowerCase(),
-    email: data.email,
-    createdAt: serverTimestamp(),
-  });
+  await Promise.all([
+    updateProfile(user, { displayName: data.displayName }),
+    setDoc(doc(db, 'users', user.uid), {
+      displayName: data.displayName,
+      displayNameLower: data.displayName.toLowerCase(),
+      email: data.email,
+      createdAt: serverTimestamp(),
+    }),
+  ]);
 
   return {
     uid: user.uid,
     email: user.email,
-    displayName: user.displayName,
+    displayName: data.displayName,
   };
 };
 
