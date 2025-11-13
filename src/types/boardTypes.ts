@@ -25,5 +25,5 @@ export interface PaginationProps {
   onPageChange: (page: number) => void; // 페이지 변경 함수
 }
 
-export type BoardCreate = Pick<BoardItem, 'title' | 'content'>;
+export type BoardWrite = Pick<BoardItem, 'title' | 'content'>;
 export type BoardUpdate = Partial<BoardItem> & { id: string };

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoardForm from '@/components/board/BoardForm';
-import type { BoardCreate } from '@/types/boardTypes';
+import type { BoardWrite } from '@/types/boardTypes';
 import { useCreateBoard } from '@/hooks/useBoardQuery';
 
 const BoardCreate = () => {
   const navigate = useNavigate();
   const { mutate, isPending } = useCreateBoard();
 
-  const formSubmit = (data: BoardCreate) => {
+  const formSubmit = (data: BoardWrite) => {
     mutate(data, {
       onSuccess: () => {
         alert('게시글이 등록되었습니다.');
