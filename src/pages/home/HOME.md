@@ -1,7 +1,7 @@
 # SIDE PORTFOLIO PROJECT
 
 ```
-NEW - [React Query(v5) 버전] https://github.com/silence337/mypp-fb-web-query
+NEW - [React Query(v5) 버전] https://github.com/silence337/mypp-fb-web-rq
 ```
 
 ```
