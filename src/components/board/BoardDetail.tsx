@@ -8,7 +8,7 @@ import { useAuthStore } from '@/store/authStore';
 const BoardDetail = ({ boardView }: ViewProps) => {
   const navigate = useNavigate();
   //const { data: user } = useCurrentUser();
-  const { user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const deleteMutation = useDeleteBoard();
 
   const isAuthor = boardView && user && boardView.author === user.displayName;

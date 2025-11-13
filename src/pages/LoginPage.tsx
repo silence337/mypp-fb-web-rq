@@ -13,7 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || '/';
   //const { data: user, isPending: isUserLoading } = useCurrentUser();
-  const { user, isLoading } = useAuthStore();
+  const { user, initialized } = useAuthStore();
   const [loginError, setLoginError] = useState<string | null>(null);
 
   /*
@@ -62,12 +62,12 @@ const LoginPage = () => {
 
   // 로그인 한 유저가 /login 직접 접근시 리다이렉트
   useEffect(() => {
-    if (!isLoading && user) {
+    if (initialized && user) {
       navigate('/', { replace: true });
     }
-  }, [user, isLoading, navigate]);
+  }, [user, initialized, navigate]);
 
-  if (isLoading) return null;
+  if (!initialized) return null;
 
   return (
     <form onSubmit={handleSubmit(loginAction)}>

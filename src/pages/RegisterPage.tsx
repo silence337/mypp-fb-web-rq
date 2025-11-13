@@ -10,7 +10,7 @@ import { useAuthStore } from '@/store/authStore';
 const RegisterPage = () => {
   const navigate = useNavigate();
   //const { data: user, isPending: isUserLoading } = useCurrentUser();
-  const { user, isLoading } = useAuthStore();
+  const { user, initialized } = useAuthStore();
   /*
     페이지에서 처리할 뮤테이션이 하나라면 간단히 이렇게도 사용..
     const { mutate, isPending } = useSignUp(); 
@@ -67,12 +67,12 @@ const RegisterPage = () => {
 
   // 로그인 한 유저가 /regiter 직접 접근시 리다이렉트
   useEffect(() => {
-    if (!isLoading && user) {
+    if (initialized && user) {
       navigate('/', { replace: true });
     }
-  }, [user, isLoading, navigate]);
+  }, [user, initialized, navigate]);
 
-  if (isLoading) return null;
+  if (!initialized) return null;
 
   return (
     <form onSubmit={handleSubmit(registerAction)}>

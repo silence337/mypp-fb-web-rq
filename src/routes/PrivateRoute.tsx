@@ -1,15 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-//import { useCurrentUser } from '@/hooks/useAuthQuery';
 import { useAuthStore } from '@/store/authStore';
 
 const PrivateRoute = () => {
-  //const { data: user, isLoading } = useCurrentUser();
-  const { user, isLoading } = useAuthStore();
+  const { user, initialized } = useAuthStore();
   const location = useLocation(); // 로그인 페이지 이전의 마지막에 있던 페이지로 이동하기 위한것
 
-  if (isLoading) {
-    return; // Firebase 초기 로딩 중일 때
-  }
+  if (!initialized) return;
 
   if (!user) {
     return <Navigate to='/login' replace state={{ from: location }} />; // 로그인 안되어 있으면 리디렉션

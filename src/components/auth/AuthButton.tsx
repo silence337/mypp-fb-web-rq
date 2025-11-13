@@ -5,7 +5,7 @@ import { useSignOut, useDeleteUser } from '@/hooks/useAuthQuery';
 import { useAuthStore } from '@/store/authStore';
 
 const AuthButton = () => {
-  const { user, isLoading } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
   /*
@@ -42,7 +42,7 @@ ex) const signoutfn = useSignOut();
   // 회원탈퇴
   const handleDeleteUser = () => {
     if (user?.email === 'admin@naver.com') {
-      alert('제공해드린 관리자 계정은 회원탈퇴가 불가능합니다.');
+      alert('관리자 계정은 회원탈퇴가 불가능합니다.');
       return;
     }
     if (!window.confirm('정말로 탈퇴하시겠습니까?')) {
@@ -56,8 +56,6 @@ ex) const signoutfn = useSignOut();
     deleteUserMutation(password, {
       onSuccess: () => {
         alert('회원탈퇴가 완료되었습니다.');
-        // queryClient 조작은 더 이상 필요 없습니다. onAuthStateChanged가 상태를 null로 변경합니다.
-        //queryClient.invalidateQueries({ queryKey: ['user'] });
         navigate('/');
       },
       onError: (error) => {
@@ -73,8 +71,6 @@ ex) const signoutfn = useSignOut();
       },
     });
   };
-
-  if (isLoading) return null;
 
   return (
     <span>

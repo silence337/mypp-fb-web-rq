@@ -8,13 +8,21 @@ import type { AuthUser } from '@/types/authTypes';
 interface AuthState {
   user: AuthUser | null;
   isLoading: boolean;
+  error: string | null;
+  initialized: boolean;
+
   setUser: (user: AuthUser | null) => void;
   setLoading: (isLoading: boolean) => void;
+  setInitialized: (v: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isLoading: true,
+  error: null,
+  initialized: false,
+
   setUser: (user) => set({ user, isLoading: false }), // user 상태를 업데이트 액션
   setLoading: (isLoading) => set({ isLoading }),
+  setInitialized: (v) => set({ initialized: v }),
 }));
