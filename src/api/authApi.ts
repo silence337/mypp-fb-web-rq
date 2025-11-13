@@ -3,7 +3,7 @@ import {
   updateProfile,
   setPersistence,
   signInWithEmailAndPassword,
-  browserSessionPersistence,
+  browserLocalPersistence,
   EmailAuthProvider,
   deleteUser,
   reauthenticateWithCredential,
@@ -41,7 +41,7 @@ export const signUp = async (data: FormValues): Promise<AuthUser> => {
 
 // 로그인
 export const userLogin = async (data: AuthUserLogin): Promise<AuthUser> => {
-  await setPersistence(auth, browserSessionPersistence); //브라우저의 탭이나 창이 닫히면 로그인 섹션 삭제. ( browserSessionPersistence )
+  await setPersistence(auth, browserLocalPersistence);
   const userCredential = await signInWithEmailAndPassword(
     auth,
     data.email,
