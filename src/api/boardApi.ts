@@ -11,7 +11,7 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import type { BoardItem, BoardCreate, BoardUpdate } from '@/types/boardTypes';
+import type { BoardItem, BoardWrite, BoardUpdate } from '@/types/boardTypes';
 
 //게시글 리스트
 export const fetchBoardList = async (): Promise<BoardItem[]> => {
@@ -53,9 +53,7 @@ export const fetchBoardById = async (id: string): Promise<BoardItem> => {
 };
 
 //게시글 쓰기
-export const createBoard = async (
-  newBoard: BoardCreate
-): Promise<BoardItem> => {
+export const createBoard = async (newBoard: BoardWrite): Promise<BoardItem> => {
   const user = auth.currentUser; // Firebase 에서 현재 로그인 유저 가져오기
 
   const docRef = await addDoc(collection(db, 'board'), {
