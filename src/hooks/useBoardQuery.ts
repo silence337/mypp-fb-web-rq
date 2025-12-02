@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import type { BoardCreate, BoardItem, BoardUpdate } from '@/types/boardTypes';
+import type { BoardWrite, BoardItem, BoardUpdate } from '@/types/boardTypes';
 import {
   fetchBoardList,
   fetchBoardById,
@@ -43,7 +43,7 @@ export const useCreateBoard = () => {
   const queryClient = useQueryClient();
 
   // useMutation 타입 <BoardItem:서버 반환데이터, Error, BoardCreate: newBoard로 넘기는 입력데이터>
-  return useMutation<BoardItem, Error, BoardCreate>({
+  return useMutation<BoardItem, Error, BoardWrite>({
     mutationFn: createBoard,
     onSuccess: (newBoard) => {
       // 리스트 캐시에 반영
